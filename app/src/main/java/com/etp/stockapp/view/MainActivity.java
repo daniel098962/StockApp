@@ -1,7 +1,6 @@
 package com.etp.stockapp.view;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.etp.stockapp.R;
-import com.etp.stockapp.data.model.ThreeCorporationModel;
+import com.etp.stockapp.data.model.ThreeCorporationDetail;
 import com.etp.stockapp.view_model.MainPageViewModel;
 import com.google.gson.Gson;
 
@@ -52,9 +51,9 @@ public class MainActivity extends BaseActivity {
     private void subscribeSubject() {
 
         {
-            Disposable disposable = mMainViewModel.mOutput.showRecyclerView.subscribe(new Consumer<List<ThreeCorporationModel>>() {
+            Disposable disposable = mMainViewModel.mOutput.showRecyclerView.subscribe(new Consumer<List<ThreeCorporationDetail>>() {
                 @Override
-                public void accept(List<ThreeCorporationModel> demoModels) throws Exception {
+                public void accept(List<ThreeCorporationDetail> demoModels) throws Exception {
                     Log.d("///", "ShowRecyclerView success: " + new Gson().toJson(demoModels.get(0)));
                     mAdapter = new RecyclerViewAdapter(demoModels);
                     mRecyclerView.setAdapter(mAdapter);
@@ -69,14 +68,14 @@ public class MainActivity extends BaseActivity {
             addDisposable(disposable);
         }
 
-        mMainViewModel.mInput.callGetStockCorporation.onNext("20210111");
+        mMainViewModel.mInput.callGetStockCorporation.onNext("20210114");
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter {
 
-        private List<ThreeCorporationModel> mDemoModelList;
+        private List<ThreeCorporationDetail> mDemoModelList;
 
-        public RecyclerViewAdapter(List<ThreeCorporationModel> demoModelList) {
+        public RecyclerViewAdapter(List<ThreeCorporationDetail> demoModelList) {
             mDemoModelList = demoModelList;
         }
 
@@ -100,7 +99,7 @@ public class MainActivity extends BaseActivity {
             return mDemoModelList.size();
         }
 
-        public ThreeCorporationModel getItem(int position) {
+        public ThreeCorporationDetail getItem(int position) {
             return mDemoModelList.get(position);
         }
     }
@@ -118,11 +117,11 @@ public class MainActivity extends BaseActivity {
             mTransVolumeTextView = itemView.findViewById(R.id.over_number_text_view);
         }
 
-        public void setItem(ThreeCorporationModel item) {
+        public void setItem(ThreeCorporationDetail item) {
 
             mStockIDTextView.setText(item.getStockID());
             mStockNameTextView.setText(item.getStockName());
-            mTransVolumeTextView.setText(item.getTransVolume());
+            mTransVolumeTextView.setText(item.getTotalOver());
         }
     }
 }

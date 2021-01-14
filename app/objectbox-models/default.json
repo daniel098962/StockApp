@@ -1,0 +1,230 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8427494679554052260",
+      "lastPropertyId": "7:4422920955430197389",
+      "name": "StockEntity",
+      "properties": [
+        {
+          "id": "1:2655233897117697903",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "5:7643830402169486342",
+          "name": "stockID",
+          "type": 9
+        },
+        {
+          "id": "6:9217856338885603885",
+          "name": "stockName",
+          "type": 9
+        },
+        {
+          "id": "7:4422920955430197389",
+          "name": "stockMonthAvg",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:7008317304051921478",
+      "lastPropertyId": "27:8517575156950691127",
+      "name": "StockPerCorporationEntity",
+      "properties": [
+        {
+          "id": "1:4119661402543702251",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "15:3911852535136288157",
+          "name": "stockID",
+          "type": 9
+        },
+        {
+          "id": "16:6759960370102397221",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "17:6151718804690503968",
+          "name": "foreignBuy",
+          "type": 9
+        },
+        {
+          "id": "18:3075272122703176816",
+          "name": "foreignSell",
+          "type": 9
+        },
+        {
+          "id": "19:1541636087276753784",
+          "name": "foreignOver",
+          "type": 9
+        },
+        {
+          "id": "20:2605790486291507685",
+          "name": "investmentBuy",
+          "type": 9
+        },
+        {
+          "id": "21:5092374298680204568",
+          "name": "investmentSell",
+          "type": 9
+        },
+        {
+          "id": "22:8513021921015255730",
+          "name": "investmentOver",
+          "type": 9
+        },
+        {
+          "id": "23:257748299891196380",
+          "name": "selfBuy",
+          "type": 9
+        },
+        {
+          "id": "24:6487704356663450304",
+          "name": "selfSell",
+          "type": 9
+        },
+        {
+          "id": "25:3746768760520863615",
+          "name": "selfOver",
+          "type": 9
+        },
+        {
+          "id": "26:7011839078457650846",
+          "name": "totalOver",
+          "type": 9
+        },
+        {
+          "id": "27:8517575156950691127",
+          "name": "stockItemId",
+          "indexId": "3:4135238445179851557",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "StockEntity"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:8183933459770520256",
+      "lastPropertyId": "22:5920293209237999705",
+      "name": "StockPerDayEntity",
+      "properties": [
+        {
+          "id": "1:6690806608988427421",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "12:6023027810310215919",
+          "name": "mStockItemId",
+          "indexId": "2:5435957274076481273",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "StockEntity"
+        },
+        {
+          "id": "13:7629942879944906342",
+          "name": "stockID",
+          "type": 9
+        },
+        {
+          "id": "14:8525602444823569451",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "15:4215634910438070634",
+          "name": "openPrize",
+          "type": 9
+        },
+        {
+          "id": "16:5522629775991070661",
+          "name": "closePrize",
+          "type": 9
+        },
+        {
+          "id": "17:27595578764791622",
+          "name": "range",
+          "type": 9
+        },
+        {
+          "id": "18:1763393675064470525",
+          "name": "highestPrize",
+          "type": 9
+        },
+        {
+          "id": "19:3205437166188752750",
+          "name": "lowestPrize",
+          "type": 9
+        },
+        {
+          "id": "20:4157295830053789987",
+          "name": "dealStock",
+          "type": 9
+        },
+        {
+          "id": "21:8634691669952719063",
+          "name": "dealCount",
+          "type": 9
+        },
+        {
+          "id": "22:5920293209237999705",
+          "name": "dealTotalPrize",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "3:8183933459770520256",
+  "lastIndexId": "3:4135238445179851557",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [
+    4824347305432852939
+  ],
+  "retiredPropertyUids": [
+    9064828780061414415,
+    9199461324418670992,
+    4510996472603808337,
+    6960742072005226269,
+    1928527110875361706,
+    3171919060121744520,
+    8400902286336431570,
+    5551065730130931856,
+    3671973110713288727,
+    5108768658712419897,
+    2371977991637277466,
+    5201101513860664791,
+    2270499425468712545,
+    6907735298112532083,
+    7038853757677185553,
+    4858688390902740983,
+    5575085840699998860,
+    2294144566548390122,
+    3107860009179869375,
+    8215545757874117203,
+    6251165166490985986,
+    5117170313421384170,
+    238426874889518138,
+    8702252622286399333,
+    5892213042126013786,
+    848474732879464228
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

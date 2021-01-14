@@ -1,18 +1,26 @@
 plugins {
     id 'com.android.application'
+    id 'io.objectbox'
 }
 
 android {
     signingConfigs {
-        config {
+        debug {
             keyAlias 'android_daniel_yu_sign_key'
             keyPassword 'd4a9n9iel'
-            storeFile file('C:/Users/User/AndroidProjects/StockApp/android_daniel_yu_sign_key.jks')
+            storeFile file('android_daniel_yu_sign_key.jks')
+            storePassword 'd4a9n9iel'
+        }
+
+        release {
+            keyAlias 'android_daniel_yu_sign_key'
+            keyPassword 'd4a9n9iel'
+            storeFile file('android_daniel_yu_sign_key.jks')
             storePassword 'd4a9n9iel'
         }
     }
     compileSdkVersion 29
-
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.etp.stockapp"
         minSdkVersion 24
@@ -26,8 +34,15 @@ android {
 
     buildTypes {
         release {
+            debuggable true
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            applicationIdSuffix '.debug'
         }
     }
 

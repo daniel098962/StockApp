@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Daniel YU on 2021/1/14.
  */
 
-public class ApiResponse {
+public class CorporationResponse {
 
     @SerializedName("stat")
     private String mStatus;
@@ -25,6 +25,30 @@ public class ApiResponse {
 
     @SerializedName("selectType")
     private String mSelectType;
+
+    private String mStockID;
+
+    private String mStockName;
+
+    private String mForeignBuy;
+
+    private String mForeignSell;
+
+    private String mForeignOver;
+
+    private String mInvestmentBuy;
+
+    private String mInvestmentSell;
+
+    private String mInvestmentOver;
+
+    private String mSelfBuy;
+
+    private String mSelfSell;
+
+    private String mSelfOver;
+
+    private String mTotalOver;
 
     public String getStatus() {
         return mStatus;

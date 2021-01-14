@@ -4,8 +4,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.etp.stockapp.custom.application.StockApplication;
-import com.etp.stockapp.data.model.ApiResponse;
-import com.etp.stockapp.data.model.ThreeCorporationModel;
+import com.etp.stockapp.data.model.CorporationResponse;
+import com.etp.stockapp.data.model.ThreeCorporationDetail;
+import com.etp.stockapp.utils.ApiItemToDetail;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -48,27 +49,24 @@ public class MainPageViewModel extends BaseViewModel {
 
                                 try {
 
-                                    Callback<ApiResponse> apiCallback = new Callback<ApiResponse>() {
+                                    Callback<CorporationResponse> apiCallback = new Callback<CorporationResponse>() {
                                         @Override
-                                        public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                                        public void onResponse(Call<CorporationResponse> call, Response<CorporationResponse> response) {
 
                                             Log.d("///", "ApiCallback success  status: " + response.body().getStatus());
                                             if (TextUtils.equals(response.body().getStatus(), "OK")) {
 
                                                 List<List<String>> threeCorporationList = response.body().getThreeCorporationList();
-                                                List<ThreeCorporationModel> perStockInfoList = new ArrayList<>();
+                                                List<ThreeCorporationDetail> perStockInfoList = new ArrayList<>();
                                                 for (List<String> threeCorporationItem : threeCorporationList) {
-                                                    ThreeCorporationModel demoModel = new ThreeCorporationModel();
-                                                    demoModel.setStockID(threeCorporationItem.get(0));
-                                                    demoModel.setStockName(threeCorporationItem.get(1).trim());
-                                                    demoModel.setTransVolume(threeCorporationItem.get(threeCorporationItem.size() - 1).replace(",", ""));
+                                                    ThreeCorporationDetail demoModel = ApiItemToDetail.ThreeCorporation.toPerStockCorporation(threeCorporationItem);
                                                     perStockInfoList.add(demoModel);
                                                 }
 
-                                                Collections.sort(perStockInfoList, new Comparator<ThreeCorporationModel>() {
+                                                Collections.sort(perStockInfoList, new Comparator<ThreeCorporationDetail>() {
                                                     @Override
-                                                    public int compare(ThreeCorporationModel demoModel, ThreeCorporationModel t1) {
-                                                        return Integer.compare(Integer.parseInt(t1.getTransVolume()), Integer.parseInt(demoModel.getTransVolume()));
+                                                    public int compare(ThreeCorporationDetail demoModel, ThreeCorporationDetail t1) {
+                                                        return Integer.compare(Integer.parseInt(t1.getTotalOver()), Integer.parseInt(demoModel.getTotalOver()));
                                                     }
                                                 });
 
@@ -77,7 +75,7 @@ public class MainPageViewModel extends BaseViewModel {
                                         }
 
                                         @Override
-                                        public void onFailure(Call<ApiResponse> call, Throwable t) {
+                                        public void onFailure(Call<CorporationResponse> call, Throwable t) {
 
                                             Log.d("///", "ApiCallback fail  throwable: " + t);
                                         }
@@ -125,6 +123,6 @@ public class MainPageViewModel extends BaseViewModel {
 
     public class Output {
 
-        public BehaviorSubject<List<ThreeCorporationModel>> showRecyclerView = BehaviorSubject.create();
+        public BehaviorSubject<List<ThreeCorporationDetail>> showRecyclerView = BehaviorSubject.create();
     }
 }

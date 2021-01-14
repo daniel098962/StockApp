@@ -1,6 +1,6 @@
 package com.etp.stockapp.api;
 
-import com.etp.stockapp.data.model.ApiResponse;
+import com.etp.stockapp.data.model.CorporationResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -50,9 +50,9 @@ public interface Api {
      * @return
      */
     @GET("fund/T86")
-    Call<ApiResponse> callStockThreeCorporation(@Query("response") String response,
-                                                @Query("date") String date,
-                                                @Query("selectType") String selectType);
+    Call<CorporationResponse> callStockThreeCorporation(@Query("response") String response,
+                                                        @Query("date") String date,
+                                                        @Query("selectType") String selectType);
 
     /**
      * 取得個股特定日期收盤資訊
