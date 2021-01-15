@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.etp.stockapp.custom.application.StockApplication;
 import com.etp.stockapp.data.model.CorporationResponse;
-import com.etp.stockapp.data.model.ThreeCorporationDetail;
+import com.etp.stockapp.data.model.CorporationDetail;
 import com.etp.stockapp.utils.ApiItemToDetail;
 import com.google.gson.Gson;
 
@@ -57,15 +57,15 @@ public class MainPageViewModel extends BaseViewModel {
                                             if (TextUtils.equals(response.body().getStatus(), "OK")) {
 
                                                 List<List<String>> threeCorporationList = response.body().getThreeCorporationList();
-                                                List<ThreeCorporationDetail> perStockInfoList = new ArrayList<>();
+                                                List<CorporationDetail> perStockInfoList = new ArrayList<>();
                                                 for (List<String> threeCorporationItem : threeCorporationList) {
-                                                    ThreeCorporationDetail demoModel = ApiItemToDetail.ThreeCorporation.toPerStockCorporation(threeCorporationItem);
+                                                    CorporationDetail demoModel = ApiItemToDetail.ThreeCorporation.toPerStockCorporation(threeCorporationItem);
                                                     perStockInfoList.add(demoModel);
                                                 }
 
-                                                Collections.sort(perStockInfoList, new Comparator<ThreeCorporationDetail>() {
+                                                Collections.sort(perStockInfoList, new Comparator<CorporationDetail>() {
                                                     @Override
-                                                    public int compare(ThreeCorporationDetail demoModel, ThreeCorporationDetail t1) {
+                                                    public int compare(CorporationDetail demoModel, CorporationDetail t1) {
                                                         return Integer.compare(Integer.parseInt(t1.getTotalOver()), Integer.parseInt(demoModel.getTotalOver()));
                                                     }
                                                 });
@@ -86,7 +86,7 @@ public class MainPageViewModel extends BaseViewModel {
                                     StockApplication.getInstance()
                                             .getBaseStockApiManager()
                                             .getApi()
-                                            .callStockThreeCorporation("json", dateString, "ALL")
+                                            .callStockCorporation("json", dateString, "ALL")
                                             .enqueue(apiCallback);
 
                                 } catch (Exception e) {
@@ -123,6 +123,6 @@ public class MainPageViewModel extends BaseViewModel {
 
     public class Output {
 
-        public BehaviorSubject<List<ThreeCorporationDetail>> showRecyclerView = BehaviorSubject.create();
+        public BehaviorSubject<List<CorporationDetail>> showRecyclerView = BehaviorSubject.create();
     }
 }

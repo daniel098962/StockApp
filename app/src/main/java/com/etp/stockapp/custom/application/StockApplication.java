@@ -44,7 +44,7 @@ public class StockApplication extends Application {
         super.onTerminate();
     }
 
-    public Retrofit getBaseStockRetrofit() {
+    private Retrofit getBaseStockRetrofit() {
 
         if (mRetrofit == null) {
 
@@ -58,7 +58,7 @@ public class StockApplication extends Application {
         return mRetrofit;
     }
 
-    public Retrofit getRealStockRetrofit() {
+    private Retrofit getRealStockRetrofit() {
 
         if (mRealStockRetrofit == null) {
 

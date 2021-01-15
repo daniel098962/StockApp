@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.etp.stockapp.R;
-import com.etp.stockapp.data.model.ThreeCorporationDetail;
+import com.etp.stockapp.data.model.CorporationDetail;
 import com.etp.stockapp.view_model.MainPageViewModel;
 import com.google.gson.Gson;
 
@@ -51,9 +51,9 @@ public class MainActivity extends BaseActivity {
     private void subscribeSubject() {
 
         {
-            Disposable disposable = mMainViewModel.mOutput.showRecyclerView.subscribe(new Consumer<List<ThreeCorporationDetail>>() {
+            Disposable disposable = mMainViewModel.mOutput.showRecyclerView.subscribe(new Consumer<List<CorporationDetail>>() {
                 @Override
-                public void accept(List<ThreeCorporationDetail> demoModels) throws Exception {
+                public void accept(List<CorporationDetail> demoModels) throws Exception {
                     Log.d("///", "ShowRecyclerView success: " + new Gson().toJson(demoModels.get(0)));
                     mAdapter = new RecyclerViewAdapter(demoModels);
                     mRecyclerView.setAdapter(mAdapter);
@@ -73,9 +73,9 @@ public class MainActivity extends BaseActivity {
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter {
 
-        private List<ThreeCorporationDetail> mDemoModelList;
+        private List<CorporationDetail> mDemoModelList;
 
-        public RecyclerViewAdapter(List<ThreeCorporationDetail> demoModelList) {
+        public RecyclerViewAdapter(List<CorporationDetail> demoModelList) {
             mDemoModelList = demoModelList;
         }
 
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
             return mDemoModelList.size();
         }
 
-        public ThreeCorporationDetail getItem(int position) {
+        public CorporationDetail getItem(int position) {
             return mDemoModelList.get(position);
         }
     }
@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivity {
             mTransVolumeTextView = itemView.findViewById(R.id.over_number_text_view);
         }
 
-        public void setItem(ThreeCorporationDetail item) {
+        public void setItem(CorporationDetail item) {
 
             mStockIDTextView.setText(item.getStockID());
             mStockNameTextView.setText(item.getStockName());

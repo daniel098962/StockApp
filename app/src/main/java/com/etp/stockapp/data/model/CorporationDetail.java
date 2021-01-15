@@ -4,7 +4,7 @@ package com.etp.stockapp.data.model;
  * Created by Daniel YU on 2021/1/14.
  */
 
-public class ThreeCorporationDetail {
+public class CorporationDetail {
 
     private String mStockID = "";
 

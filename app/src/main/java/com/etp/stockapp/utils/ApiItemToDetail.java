@@ -1,7 +1,8 @@
 package com.etp.stockapp.utils;
 
 import com.etp.stockapp.custom.StockProperties;
-import com.etp.stockapp.data.model.ThreeCorporationDetail;
+import com.etp.stockapp.data.model.StockRangeInfoDetail;
+import com.etp.stockapp.data.model.CorporationDetail;
 
 import java.util.List;
 
@@ -12,9 +13,9 @@ public class ApiItemToDetail {
 
     public static class ThreeCorporation {
 
-        public static ThreeCorporationDetail toPerStockCorporation(List<String> apiItemList) {
+        public static CorporationDetail toPerStockCorporation(List<String> apiItemList) {
 
-            ThreeCorporationDetail detail = new ThreeCorporationDetail();
+            CorporationDetail detail = new CorporationDetail();
             if (apiItemList.size() > 18) {
                 detail.setStockID(apiItemList.get(0));
                 detail.setStockName(apiItemList.get(1).trim());
@@ -32,6 +33,29 @@ public class ApiItemToDetail {
                 detail.setSelfSell(String.valueOf(selfSell));
                 detail.setSelfOver(apiItemList.get(11).replace(StockProperties.Punctuation.COMMA, ""));
                 detail.setTotalOver(apiItemList.get(18).replace(StockProperties.Punctuation.COMMA, ""));
+            }
+
+            return detail;
+        }
+    }
+
+    public static class StockRangeInfo {
+
+        public static StockRangeInfoDetail toPerStockRangeInfo(List<String> apiItemList) {
+
+            StockRangeInfoDetail detail = new StockRangeInfoDetail();
+            if (apiItemList.size() > 9) {
+
+                detail.setStockID(apiItemList.get(0));
+                detail.setStockName(apiItemList.get(1));
+                detail.setDealStock(apiItemList.get(2));
+                detail.setDealPrize(apiItemList.get(3));
+                detail.setOpenPrize(apiItemList.get(4));
+                detail.setHighestPrize(apiItemList.get(5));
+                detail.setLowestPrize(apiItemList.get(6));
+                detail.setClosePrize(apiItemList.get(7));
+                detail.setRange(apiItemList.get(8));
+                detail.setDealCount(apiItemList.get(9));
             }
 
             return detail;

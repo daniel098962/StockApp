@@ -19,6 +19,7 @@ public class StockEntity {
     private String stockID;
     private String stockName;
     private String stockMonthAvg;
+    private String type;
 
     @Backlink
     public ToMany<StockPerDayEntity> stockPerDayList;
@@ -47,6 +48,14 @@ public class StockEntity {
 
     public void setStockMonthAvg(String stockMonthAvg) {
         this.stockMonthAvg = stockMonthAvg;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public List<StockPerDayEntity> getStockPerDayLis() {

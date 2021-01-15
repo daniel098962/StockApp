@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Daniel YU on 2021/1/14.
+ * Created by Daniel on 2021/1/15.
  */
-
-public class CorporationResponse {
+public class StockRangeInfoResponse {
 
     @SerializedName("stat")
     private String mStatus;
@@ -22,9 +21,6 @@ public class CorporationResponse {
 
     @SerializedName("data")
     private List<List<String>> mThreeCorporationList = new ArrayList<>();
-
-    @SerializedName("selectType")
-    private String mSelectType;
 
     public String getStatus() {
         return mStatus;
@@ -56,13 +52,5 @@ public class CorporationResponse {
 
     public void setThreeCorporationList(List<List<String>> threeCorporationList) {
         mThreeCorporationList = threeCorporationList;
-    }
-
-    public String getSelectType() {
-        return mSelectType;
-    }
-
-    public void setSelectType(String selectType) {
-        mSelectType = selectType;
     }
 }

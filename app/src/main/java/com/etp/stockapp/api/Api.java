@@ -1,6 +1,7 @@
 package com.etp.stockapp.api;
 
 import com.etp.stockapp.data.model.CorporationResponse;
+import com.etp.stockapp.data.model.StockRangeInfoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,7 +19,7 @@ public interface Api {
      * @return
      */
     @GET("exchangeReport/STOCK_DAY_ALL")
-    Call<Object> callAllStockInfoPerDay(@Query("response") String response);
+    Call<StockRangeInfoResponse> callAllStockInfoPerDay(@Query("response") String response);
 
     /**
      * 每日盤後所有個股最高最低收盤漲跌價格
@@ -50,9 +51,9 @@ public interface Api {
      * @return
      */
     @GET("fund/T86")
-    Call<CorporationResponse> callStockThreeCorporation(@Query("response") String response,
-                                                        @Query("date") String date,
-                                                        @Query("selectType") String selectType);
+    Call<CorporationResponse> callStockCorporation(@Query("response") String response,
+                                                   @Query("date") String date,
+                                                   @Query("selectType") String selectType);
 
     /**
      * 取得個股特定日期收盤資訊

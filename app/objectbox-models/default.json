@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:8427494679554052260",
-      "lastPropertyId": "7:4422920955430197389",
+      "lastPropertyId": "8:6023432385512634484",
       "name": "StockEntity",
       "properties": [
         {
@@ -27,6 +27,11 @@
         {
           "id": "7:4422920955430197389",
           "name": "stockMonthAvg",
+          "type": 9
+        },
+        {
+          "id": "8:6023432385512634484",
+          "name": "type",
           "type": 9
         }
       ],
