@@ -8,6 +8,8 @@ public class CorporationDetail {
 
     private String mStockID = "";
 
+    private String mDate = "";
+
     private String mStockName = "";
 
     private String mForeignBuy= "0";
@@ -36,6 +38,14 @@ public class CorporationDetail {
 
     public void setStockID(String stockID) {
         mStockID = stockID;
+    }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
     }
 
     public String getStockName() {

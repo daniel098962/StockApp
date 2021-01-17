@@ -36,6 +36,9 @@ android {
                 arguments = ['resourcePackageName': android.defaultConfig.applicationId]
             }
         }
+
+        renderscriptTargetApi 17
+        renderscriptSupportModeEnabled true
     }
 
     buildTypes {
@@ -78,8 +81,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    annotationProcessor "org.androidannotations:androidannotations:4.7.0"
-    implementation "org.androidannotations:androidannotations-api:4.7.0"
+    annotationProcessor 'org.androidannotations:androidannotations:4.7.0'
+    implementation 'org.androidannotations:androidannotations-api:4.7.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
@@ -89,4 +92,18 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.9.0'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
     implementation "com.squareup.okhttp3:okhttp:3.14.9"
+
+    implementation 'com.kongzue.dialog_v3:dialog:3.2.4'
+
+    // RxBinding
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-core:3.0.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-drawerlayout:3.0.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-leanback:3.0.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:3.0.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0'
+    implementation 'com.jakewharton.rxbinding3:rxbinding-material:3.0.0'
 }

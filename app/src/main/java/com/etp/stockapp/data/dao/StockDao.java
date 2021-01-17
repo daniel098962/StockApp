@@ -10,13 +10,17 @@ import java.util.List;
  */
 public interface StockDao {
 
-    boolean insertAndUpdateAllStockByDB(List<StockEntity> insertDbItem);
+    boolean insertAndUpdateByDB(StockEntity insertDbItem);
 
-    boolean insertAndUpdateAllStockByDetail(List<StockRangeInfoDetail> insertDetailItem);
+    boolean insertAndUpdateByDetail(StockRangeInfoDetail insertDetailITem);
 
-    List<StockEntity> getAllStock();
+    boolean insertAndUpdateByDB(List<StockEntity> insertDbItemList);
 
-    List<StockEntity> getStockByType(String type);
+    boolean insertAndUpdateByDetail(List<StockRangeInfoDetail> insertDetailItemList);
 
-    StockEntity getSpecificStockByID(String stockID);
+    List<StockEntity> getAllItem();
+
+    List<StockEntity> getItemListByType(String type);
+
+    StockEntity getItemByID(String stockID);
 }

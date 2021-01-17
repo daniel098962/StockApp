@@ -121,7 +121,7 @@
     },
     {
       "id": "3:8183933459770520256",
-      "lastPropertyId": "22:5920293209237999705",
+      "lastPropertyId": "23:2492938341424374891",
       "name": "StockPerDayEntity",
       "properties": [
         {
@@ -129,14 +129,6 @@
           "name": "id",
           "type": 6,
           "flags": 1
-        },
-        {
-          "id": "12:6023027810310215919",
-          "name": "mStockItemId",
-          "indexId": "2:5435957274076481273",
-          "type": 11,
-          "flags": 1548,
-          "relationTarget": "StockEntity"
         },
         {
           "id": "13:7629942879944906342",
@@ -187,20 +179,29 @@
           "id": "22:5920293209237999705",
           "name": "dealTotalPrize",
           "type": 9
+        },
+        {
+          "id": "23:2492938341424374891",
+          "name": "stockItemId",
+          "indexId": "4:1268897164446242681",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "StockEntity"
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "3:8183933459770520256",
-  "lastIndexId": "3:4135238445179851557",
+  "lastIndexId": "4:1268897164446242681",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [
-    4824347305432852939
+    4824347305432852939,
+    5435957274076481273
   ],
   "retiredPropertyUids": [
     9064828780061414415,
@@ -228,7 +229,8 @@
     238426874889518138,
     8702252622286399333,
     5892213042126013786,
-    848474732879464228
+    848474732879464228,
+    6023027810310215919
   ],
   "retiredRelationUids": [],
   "version": 1

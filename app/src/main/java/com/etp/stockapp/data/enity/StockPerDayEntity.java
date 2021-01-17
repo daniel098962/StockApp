@@ -24,7 +24,7 @@ public class StockPerDayEntity {
     private String dealCount;
     private String dealTotalPrize;
 
-    public ToOne<StockEntity> mStockItem;
+    public ToOne<StockEntity> stockItem;
 
     public String getStockID() {
         return stockID;

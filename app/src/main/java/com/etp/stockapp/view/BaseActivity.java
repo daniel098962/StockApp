@@ -2,6 +2,8 @@ package com.etp.stockapp.view;
 
 import android.util.Log;
 
+import com.kongzue.dialog.v3.WaitDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

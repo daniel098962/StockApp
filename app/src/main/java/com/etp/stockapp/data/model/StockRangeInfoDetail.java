@@ -25,6 +25,12 @@ public class StockRangeInfoDetail {
 
     private String mDealCount = "0";
 
+    private String mDate = "";
+
+    private String mType = "";
+
+    private String mMonthAvg = "";
+
     public String getStockID() {
         return mStockID;
     }
@@ -103,5 +109,29 @@ public class StockRangeInfoDetail {
 
     public void setDealCount(String dealCount) {
         mDealCount = dealCount;
+    }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
+    }
+
+    public String getType() {
+        return mType;
+    }
+
+    public void setType(String type) {
+        mType = type;
+    }
+
+    public String getMonthAvg() {
+        return mMonthAvg;
+    }
+
+    public void setMonthAvg(String monthAvg) {
+        mMonthAvg = monthAvg;
     }
 }

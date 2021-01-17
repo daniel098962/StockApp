@@ -20,7 +20,7 @@ public class StockRangeInfoResponse {
     private String mTitle;
 
     @SerializedName("data")
-    private List<List<String>> mThreeCorporationList = new ArrayList<>();
+    private List<List<String>> mStockList = new ArrayList<>();
 
     public String getStatus() {
         return mStatus;
@@ -46,11 +46,11 @@ public class StockRangeInfoResponse {
         mTitle = title;
     }
 
-    public List<List<String>> getThreeCorporationList() {
-        return mThreeCorporationList;
+    public List<List<String>> getStockList() {
+        return mStockList;
     }
 
-    public void setThreeCorporationList(List<List<String>> threeCorporationList) {
-        mThreeCorporationList = threeCorporationList;
+    public void setStockList(List<List<String>> stockList) {
+        mStockList = stockList;
     }
 }

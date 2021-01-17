@@ -1,5 +1,7 @@
 package com.etp.stockapp.utils;
 
+import android.text.TextUtils;
+
 import com.etp.stockapp.custom.StockProperties;
 import com.etp.stockapp.data.model.StockRangeInfoDetail;
 import com.etp.stockapp.data.model.CorporationDetail;
@@ -33,6 +35,7 @@ public class ApiItemToDetail {
                 detail.setSelfSell(String.valueOf(selfSell));
                 detail.setSelfOver(apiItemList.get(11).replace(StockProperties.Punctuation.COMMA, ""));
                 detail.setTotalOver(apiItemList.get(18).replace(StockProperties.Punctuation.COMMA, ""));
+                detail.setDate(DateUtility.getCurrentDate());
             }
 
             return detail;
@@ -56,6 +59,7 @@ public class ApiItemToDetail {
                 detail.setClosePrize(apiItemList.get(7));
                 detail.setRange(apiItemList.get(8));
                 detail.setDealCount(apiItemList.get(9));
+                detail.setDate(DateUtility.getCurrentDate());
             }
 
             return detail;
