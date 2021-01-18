@@ -31,6 +31,8 @@ public class StockRangeInfoDetail {
 
     private String mMonthAvg = "";
 
+    private String mExPrize = "";
+
     public String getStockID() {
         return mStockID;
     }
@@ -133,5 +135,13 @@ public class StockRangeInfoDetail {
 
     public void setMonthAvg(String monthAvg) {
         mMonthAvg = monthAvg;
+    }
+
+    public String getExPrize() {
+        return mExPrize;
+    }
+
+    public void setExPrize(String exPrize) {
+        mExPrize = exPrize;
     }
 }

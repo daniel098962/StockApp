@@ -187,6 +187,7 @@ public class MainActivity extends BaseActivity {
                 }
 
                 double exPrizeDouble = Double.parseDouble(closePrize) - Double.parseDouble(range);
+                detail.setExPrize(String.valueOf(exPrizeDouble));
                 double openPrizeDouble = Double.parseDouble(openPrize);
 
                 if (openPrizeDouble > exPrizeDouble) {

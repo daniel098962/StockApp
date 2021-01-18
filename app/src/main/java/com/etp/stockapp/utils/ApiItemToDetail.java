@@ -50,15 +50,17 @@ public class ApiItemToDetail {
             if (apiItemList.size() > 9) {
 
                 detail.setStockID(apiItemList.get(0));
-                detail.setStockName(apiItemList.get(1));
-                detail.setDealStock(apiItemList.get(2));
-                detail.setDealPrize(apiItemList.get(3));
-                detail.setOpenPrize(apiItemList.get(4));
-                detail.setHighestPrize(apiItemList.get(5));
-                detail.setLowestPrize(apiItemList.get(6));
-                detail.setClosePrize(apiItemList.get(7));
-                detail.setRange(apiItemList.get(8));
-                detail.setDealCount(apiItemList.get(9));
+                detail.setStockName(apiItemList.get(1).trim());
+                detail.setDealStock(apiItemList.get(2).replace(StockProperties.Punctuation.COMMA, ""));
+                detail.setDealPrize(apiItemList.get(3).replace(StockProperties.Punctuation.COMMA, ""));
+                detail.setOpenPrize(apiItemList.get(4).replace(StockProperties.Punctuation.COMMA, ""));
+                detail.setHighestPrize(apiItemList.get(5).replace(StockProperties.Punctuation.COMMA, ""));
+                detail.setLowestPrize(apiItemList.get(6).replace(StockProperties.Punctuation.COMMA, ""));
+                detail.setClosePrize(apiItemList.get(7).replace(StockProperties.Punctuation.COMMA, ""));
+                String range = apiItemList.get(8).replace(StockProperties.Punctuation.COMMA, "");
+                range = range.replace("X", "");
+                detail.setRange(range);
+                detail.setDealCount(apiItemList.get(9).replace(StockProperties.Punctuation.COMMA, ""));
                 detail.setDate(DateUtility.getCurrentDate());
             }
 

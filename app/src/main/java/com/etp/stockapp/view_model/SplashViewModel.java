@@ -109,6 +109,11 @@ public class SplashViewModel extends BaseViewModel {
                         Log.d("///", "StockRangeInfoDetailList size: " + stockRangeInfoDetailList.size());
                         //endregion
 
+                        //region 將各股資訊匯入
+                        mStockDao.insertAndUpdateByDetail(stockRangeInfoDetailList);
+                        Log.d("///", "insert StockData success");
+                        //endregion
+
                         //region Call 對應日期之 三大法人購買資訊
                         Callback<CorporationResponse> apiCallGetCorporationPerDay = new Callback<CorporationResponse>() {
                             @Override
@@ -125,21 +130,17 @@ public class SplashViewModel extends BaseViewModel {
                                     }
                                     //endregion
 
-                                    //region 將各股資訊匯入
-                                    mStockDao.insertAndUpdateByDetail(stockRangeInfoDetailList);
-                                    //endregion
-
-                                    //region 先查詢對應日期是否已有資料 若有表是已塞入過資料庫 則跳過
+                                    //region 先查詢對應日期是否已有資料 若有表示已塞入過資料庫 則跳過
                                     Log.d("///", "CorporationDao getItemListByDate size: " + mStockPerCorporationDao.getItemListByDate(DateUtility.getCurrentDate()).size());
                                     if (mStockPerCorporationDao.getItemListByDate(DateUtility.getCurrentDate()).size() == 0) {
                                         mStockPerCorporationDao.insertAndUpdateByDetail(corporationDetailList);
+                                        Log.d("///", "insert CorporationData success");
                                     }
                                     //endregion
-
-                                    Log.d("///", "insertData success");
-                                    mOutput.changeToMainPage.onNext(true);
-                                    mOutput.showWaitDialogOrDismiss.onNext(false);
                                 }
+
+                                mOutput.changeToMainPage.onNext(true);
+                                mOutput.showWaitDialogOrDismiss.onNext(false);
                             }
 
                             @Override
