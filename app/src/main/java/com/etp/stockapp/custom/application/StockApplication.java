@@ -19,8 +19,10 @@ public class StockApplication extends Application {
 
     private Retrofit mRetrofit;
     private Retrofit mRealStockRetrofit;
+    private Retrofit mOperatingRetrofit;
     private ApiManager mApiManager;
     private ApiManager mRealTimeApiManager;
+    private ApiManager mOperatingApiManager;
 
     private static WeakReference<StockApplication> Instance;
 
@@ -72,6 +74,20 @@ public class StockApplication extends Application {
         return mRealStockRetrofit;
     }
 
+    private Retrofit getOperatingRetrofit() {
+
+        if (mOperatingRetrofit == null) {
+
+            mOperatingRetrofit = new Retrofit.Builder()
+                    .baseUrl(BuildConfig.BASE_OPERATING_REVENUE)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(new OkHttpClient())
+                    .build();
+        }
+
+        return mOperatingRetrofit;
+    }
+
     public ApiManager getBaseStockApiManager() {
 
         if (mApiManager == null) {
@@ -88,5 +104,14 @@ public class StockApplication extends Application {
         }
 
         return mRealTimeApiManager;
+    }
+
+    public ApiManager getOperatingApiManager() {
+
+        if (mOperatingApiManager == null) {
+            mOperatingApiManager = new ApiManager(getOperatingRetrofit());
+        }
+
+        return mOperatingApiManager;
     }
 }

@@ -1,9 +1,11 @@
 package com.etp.stockapp.utils;
 
+import com.etp.stockapp.data.enity.OperatingRevenueEntity;
 import com.etp.stockapp.data.enity.StockEntity;
 import com.etp.stockapp.data.enity.StockPerCorporationEntity;
 import com.etp.stockapp.data.enity.StockPerDayEntity;
 import com.etp.stockapp.data.model.CorporationDetail;
+import com.etp.stockapp.data.model.OperatingRevenueDetail;
 import com.etp.stockapp.data.model.StockDetail;
 import com.etp.stockapp.data.model.StockRangeInfoDetail;
 
@@ -94,6 +96,41 @@ public class DbItemToDetail {
             List<StockRangeInfoDetail> detailList = new ArrayList<>();
             for (StockPerDayEntity dbItem : dbItemList) {
                 detailList.add(toStockRangeInfoDetail(dbItem));
+            }
+
+            return detailList;
+        }
+    }
+
+    public static class OperatingRevenue {
+
+        public static OperatingRevenueDetail toOperatingRevenueDetail(OperatingRevenueEntity dbItem) {
+
+            OperatingRevenueDetail detail = new OperatingRevenueDetail();
+            detail.setStockID(dbItem.getStockID());
+            detail.setStockName(dbItem.getStockName());
+            detail.setCompanyType(dbItem.getCompanyType());
+            detail.setCompareWithLastMonthRevenue(dbItem.getCompareWithLastMonthRevenue());
+            detail.setCompareWithLastMonthRevenuePercent(dbItem.getCompareWithLastMonthRevenuePercent());
+            detail.setCompareWithLastYearRevenue(dbItem.getCompareWithLastYearRevenue());
+            detail.setCompareWithLastYearRevenuePercent(dbItem.getCompareWithLastYearRevenuePercent());
+            detail.setDataDate(dbItem.getDataDate());
+            detail.setReleaseDate(dbItem.getReleaseDate());
+            detail.setRevenue(dbItem.getRevenue());
+            detail.setTag(dbItem.getTag());
+            detail.setTotalRevenueCompareWithLastTimePercent(dbItem.getTotalRevenueCompareWithLastTimePercent());
+            detail.setTotalRevenueDeductLastYear(dbItem.getTotalRevenueDeductLastYear());
+            detail.setTotalRevenueDeductThisMonth(dbItem.getTotalRevenueDeductThisMonth());
+            return detail;
+        }
+
+        public static List<OperatingRevenueDetail> toOperatingRevenueDetailList(List<OperatingRevenueEntity> dbItemList) {
+
+            List<OperatingRevenueDetail> detailList = new ArrayList<>();
+
+            for (OperatingRevenueEntity dbItem : dbItemList) {
+
+                detailList.add(toOperatingRevenueDetail(dbItem));
             }
 
             return detailList;

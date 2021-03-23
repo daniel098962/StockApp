@@ -1,7 +1,6 @@
 package com.etp.stockapp.view;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,9 +13,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.etp.stockapp.R;
+import com.etp.stockapp.data.dao.OperatingRevenueDao;
+import com.etp.stockapp.data.dao.OperatingRevenueImpl;
 import com.etp.stockapp.data.model.CorporationDetail;
+import com.etp.stockapp.data.model.OperatingRevenueDetail;
 import com.etp.stockapp.data.model.StockDetail;
 import com.etp.stockapp.data.model.StockRangeInfoDetail;
+import com.etp.stockapp.utils.DbItemToDetail;
 import com.etp.stockapp.view_model.StockDetailViewModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,6 +39,8 @@ public class StockDetailActivity extends BaseActivity {
     private StockDetailViewModel mStockDetailViewModel;
     private StockDetail mStockDetail;
 
+    private OperatingRevenueDao mOperatingRevenueDao = new OperatingRevenueImpl();
+
     private TextView mStockIDTextView;
     private TextView mStockNameTextView;
     private TextView mOpenPrizeTextView;
@@ -45,6 +50,13 @@ public class StockDetailActivity extends BaseActivity {
     private TextView mRangeTextView;
     private TextView mDealStockTextView;
     private RecyclerView mRecyclerView;
+    private TextView mRevenueReleaseYearTextView;
+    private TextView mRevenueReleaseMonthTextView;
+    private TextView mRevenueReleaseDayTextView;
+    private TextView mRevenueDataYearTextView;
+    private TextView mRevenueDataMonthTextView;
+    private TextView mRevenueMonthPercentTextView;
+    private TextView mRevenueYearPercentTextView;
 
     private RecyclerView.Adapter mAdapter;
 
@@ -62,6 +74,13 @@ public class StockDetailActivity extends BaseActivity {
         mRangeTextView = findViewById(R.id.range_text_view);
         mDealStockTextView = findViewById(R.id.deal_stock_text_view);
         mRecyclerView = findViewById(R.id.corporation_recycler_view);
+        mRevenueReleaseYearTextView = findViewById(R.id.release_year_text_view);
+        mRevenueReleaseMonthTextView = findViewById(R.id.release_month_text_view);
+        mRevenueReleaseDayTextView = findViewById(R.id.release_day_text_view);
+        mRevenueDataYearTextView = findViewById(R.id.data_year_text_view);
+        mRevenueDataMonthTextView = findViewById(R.id.data_month_text_view);
+        mRevenueMonthPercentTextView = findViewById(R.id.month_compare_percent_text_view);
+        mRevenueYearPercentTextView = findViewById(R.id.year_compare_percent_text_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mStockDetail = new Gson().fromJson(this.getIntent().getStringExtra("gson"), new TypeToken<StockDetail>(){}.getType());
@@ -78,6 +97,15 @@ public class StockDetailActivity extends BaseActivity {
 
         mAdapter = new RecyclerViewAdapter(mStockDetail.getCorporationDetailList());
         mRecyclerView.setAdapter(mAdapter);
+
+        OperatingRevenueDetail detail = DbItemToDetail.OperatingRevenue.toOperatingRevenueDetail(mOperatingRevenueDao.findByStockID(infoDetail.getStockID()));
+        mRevenueReleaseYearTextView.setText(detail.getReleaseDate().substring(0, 3));
+        mRevenueReleaseMonthTextView.setText(detail.getReleaseDate().substring(3, 5));
+        mRevenueReleaseDayTextView.setText(detail.getReleaseDate().substring(5));
+        mRevenueDataYearTextView.setText(detail.getDataDate().substring(0, 3));
+        mRevenueDataMonthTextView.setText(detail.getDataDate().substring(3));
+        mRevenueMonthPercentTextView.setText(detail.getCompareWithLastMonthRevenuePercent().substring(0, 6));
+        mRevenueYearPercentTextView.setText(detail.getCompareWithLastYearRevenuePercent().substring(0, 6));
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter {

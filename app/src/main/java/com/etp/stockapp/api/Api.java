@@ -1,8 +1,12 @@
 package com.etp.stockapp.api;
 
 import com.etp.stockapp.data.model.CorporationResponse;
+import com.etp.stockapp.data.model.OperatingRevenueDetail;
 import com.etp.stockapp.data.model.StockRangeInfoResponse;
 
+import java.util.List;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -79,4 +83,11 @@ public interface Api {
     @GET("stock/api/getStockInfo.jsp")
     Call<Object> callGetRealTimeStocksInfo(@Query("ex_ch") String stockID_date,
                                            @Query("_") String timeLong);
+
+    /**
+     * 上市公司 每月營收
+     * @return
+     */
+    @GET("opendata/t187ap05_L")
+    Call<List<OperatingRevenueDetail>> callGetOperatingInfo();
 }

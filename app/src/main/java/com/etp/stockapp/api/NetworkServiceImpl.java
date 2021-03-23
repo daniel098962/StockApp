@@ -4,11 +4,15 @@ import android.util.Log;
 
 import com.etp.stockapp.custom.application.StockApplication;
 import com.etp.stockapp.data.model.CorporationResponse;
+import com.etp.stockapp.data.model.OperatingRevenueDetail;
 import com.etp.stockapp.data.model.StockRangeInfoResponse;
 import com.google.gson.Gson;
 
 import org.androidannotations.annotations.EBean;
 
+import java.util.List;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 /**
@@ -27,5 +31,10 @@ public class NetworkServiceImpl implements NetworkService {
     public Call<CorporationResponse> callGetCorporation(String date, String selectType) {
         Log.d("///", "NetworkServiceImpl callGetCorporation");
         return StockApplication.getInstance().getBaseStockApiManager().getApi().callStockCorporation("json", date, selectType);
+    }
+
+    @Override
+    public Call<List<OperatingRevenueDetail>> callGetOperatingRevenue() {
+        return StockApplication.getInstance().getOperatingApiManager().getApi().callGetOperatingInfo();
     }
 }

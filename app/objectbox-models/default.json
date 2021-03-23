@@ -190,9 +190,93 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:3287366018950348243",
+      "lastPropertyId": "29:4803988349805474078",
+      "name": "OperatingRevenueEntity",
+      "properties": [
+        {
+          "id": "1:7662344509925601004",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "16:4463350236518337414",
+          "name": "releaseDate",
+          "type": 9
+        },
+        {
+          "id": "17:2829835853122106644",
+          "name": "dataDate",
+          "type": 9
+        },
+        {
+          "id": "18:8243378578552804022",
+          "name": "stockID",
+          "type": 9
+        },
+        {
+          "id": "19:19195597907299503",
+          "name": "stockName",
+          "type": 9
+        },
+        {
+          "id": "20:6332530626051170906",
+          "name": "companyType",
+          "type": 9
+        },
+        {
+          "id": "21:4585233020761337634",
+          "name": "revenue",
+          "type": 9
+        },
+        {
+          "id": "22:4810123268694228945",
+          "name": "compareWithLastMonthRevenue",
+          "type": 9
+        },
+        {
+          "id": "23:7690819339555724282",
+          "name": "compareWithLastYearRevenue",
+          "type": 9
+        },
+        {
+          "id": "24:3918295120121605582",
+          "name": "compareWithLastMonthRevenuePercent",
+          "type": 9
+        },
+        {
+          "id": "25:7726287484149559360",
+          "name": "compareWithLastYearRevenuePercent",
+          "type": 9
+        },
+        {
+          "id": "26:3953890795265770332",
+          "name": "totalRevenueDeductThisMonth",
+          "type": 9
+        },
+        {
+          "id": "27:5599416291007756584",
+          "name": "totalRevenueDeductLastYear",
+          "type": 9
+        },
+        {
+          "id": "28:9064438783203293651",
+          "name": "totalRevenueCompareWithLastTimePercent",
+          "type": 9
+        },
+        {
+          "id": "29:4803988349805474078",
+          "name": "tag",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:8183933459770520256",
+  "lastEntityId": "4:3287366018950348243",
   "lastIndexId": "4:1268897164446242681",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
@@ -230,7 +314,21 @@
     8702252622286399333,
     5892213042126013786,
     848474732879464228,
-    6023027810310215919
+    6023027810310215919,
+    720414018941115798,
+    5062688615781552623,
+    2980740799514311284,
+    2058900412273887597,
+    8724839018937614168,
+    9090925592331712406,
+    3768319685631108553,
+    5881930842547718999,
+    5717115984857680830,
+    410029239922130103,
+    8125359587033164922,
+    307123781092829931,
+    3455746474308215244,
+    2553729235141465899
   ],
   "retiredRelationUids": [],
   "version": 1

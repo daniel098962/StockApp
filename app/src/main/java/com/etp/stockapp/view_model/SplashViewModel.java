@@ -7,6 +7,8 @@ import android.util.Log;
 import com.etp.stockapp.api.NetworkService;
 import com.etp.stockapp.api.NetworkServiceImpl;
 import com.etp.stockapp.custom.StockProperties;
+import com.etp.stockapp.data.dao.OperatingRevenueDao;
+import com.etp.stockapp.data.dao.OperatingRevenueImpl;
 import com.etp.stockapp.data.dao.StockDao;
 import com.etp.stockapp.data.dao.StockDaoImpl;
 import com.etp.stockapp.data.dao.StockPerCorporationDao;
@@ -18,12 +20,18 @@ import com.etp.stockapp.data.enity.StockPerCorporationEntity;
 import com.etp.stockapp.data.enity.StockPerDayEntity;
 import com.etp.stockapp.data.model.CorporationDetail;
 import com.etp.stockapp.data.model.CorporationResponse;
+import com.etp.stockapp.data.model.OperatingRevenueDetail;
 import com.etp.stockapp.data.model.StockRangeInfoDetail;
 import com.etp.stockapp.data.model.StockRangeInfoResponse;
 import com.etp.stockapp.utils.ApiItemToDetail;
 import com.etp.stockapp.utils.DateUtility;
+import com.etp.stockapp.utils.LogUtility;
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +39,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +53,7 @@ public class SplashViewModel extends BaseViewModel {
     private StockDao mStockDao = new StockDaoImpl();
     private StockPerDayDao mStockPerDayDao = new StockPerDayImpl();
     private StockPerCorporationDao mStockPerCorporationDao = new StockPerCorporationImpl();
+    private OperatingRevenueDao mOperatingRevenueDao = new OperatingRevenueImpl();
 
     public Input mInput = new Input();
     public Output mOutput = new Output();
@@ -141,6 +151,29 @@ public class SplashViewModel extends BaseViewModel {
 
                                 mOutput.changeToMainPage.onNext(true);
                                 mOutput.showWaitDialogOrDismiss.onNext(false);
+
+                                //region Call 上市公司 每月營業收入
+                                Callback<List<OperatingRevenueDetail>> apiCallGetOperatingRevenue = new Callback<List<OperatingRevenueDetail>>() {
+                                    @Override
+                                    public void onResponse(Call<List<OperatingRevenueDetail>> call, Response<List<OperatingRevenueDetail>> response) {
+                                        try {
+                                            
+                                            if (response.isSuccessful() && response.body().size() > 0) {
+                                                mOperatingRevenueDao.insertAndUpdateByDetailList(response.body());
+                                            }
+
+                                        } catch (Exception e) {
+                                            Log.e("///", "gson error: " + e);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<List<OperatingRevenueDetail>> call, Throwable t) {
+                                        Log.d("///", "apiCallGetOperatingRevenue fail: " + t);
+                                    }
+                                };
+                                mNetworkService.callGetOperatingRevenue().enqueue(apiCallGetOperatingRevenue);
+                                //endregion
                             }
 
                             @Override
@@ -169,7 +202,19 @@ public class SplashViewModel extends BaseViewModel {
         };
         //endregion
         Log.d("///", "apiCallGetStockPerDay call");
+
         mNetworkService.callGetStockRangeInfo().enqueue(apiCallGetStockPerDay);
+    }
+
+    private static final byte[] HEX_ARRAY = "0123456789ABCDEF".getBytes(StandardCharsets.US_ASCII);
+    public String bytesToHex(byte[] bytes) {
+        byte[] hexChars = new byte[bytes.length * 2];
+        for (int j = 0; j < bytes.length; j++) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = HEX_ARRAY[v >>> 4];
+            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
+        }
+        return new String(hexChars, StandardCharsets.UTF_8);
     }
 
     public class Input {

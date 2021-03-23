@@ -62,6 +62,7 @@ android {
             buildConfigField "String", "VERSION_FLAVOR", "\"TEST_FOR_INSIDE\""
             buildConfigField "String", "BASE_STOCK_URL", "\"https://www.twse.com.tw/\""
             buildConfigField "String", "BASE_REAL_TIME_STOCK_URL", "\"https://mis.twse.com.tw/\""
+            buildConfigField "String", "BASE_OPERATING_REVENUE", "\"https://openapi.twse.com.tw/v1/\""
         }
         //endregion
     }
