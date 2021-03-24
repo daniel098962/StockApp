@@ -131,13 +131,13 @@ public class MainActivity extends BaseActivity {
 
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mStockIDTextView;
-        private TextView mStockNameTextView;
-        private TextView mTransVolumeTextView;
-        private TextView mStockOpenPrizeTextView;
-        private TextView mStockClosePrizeTextView;
-        private TextView mStockRangeTextView;
-        private ImageView mStockRangeStatusImageView;
+        private TextView mStockIDTextView;              //股票代號
+        private TextView mStockNameTextView;            //股票名稱
+        private TextView mTransVolumeTextView;          //買賣超
+        private TextView mStockOpenPrizeTextView;       //開盤價
+        private TextView mStockClosePrizeTextView;      //收盤價
+        private TextView mStockRangeTextView;           //漲跌幅
+        private ImageView mStockRangeStatusImageView;   //箭頭圖片
 
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);

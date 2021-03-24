@@ -1,30 +1,32 @@
 package com.etp.stockapp.view;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.etp.stockapp.R;
-import com.etp.stockapp.data.dao.OperatingRevenueDao;
-import com.etp.stockapp.data.dao.OperatingRevenueImpl;
 import com.etp.stockapp.data.model.CorporationDetail;
 import com.etp.stockapp.data.model.OperatingRevenueDetail;
 import com.etp.stockapp.data.model.StockDetail;
 import com.etp.stockapp.data.model.StockRangeInfoDetail;
-import com.etp.stockapp.utils.DbItemToDetail;
 import com.etp.stockapp.view_model.StockDetailViewModel;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class StockDetailActivity extends BaseActivity {
 
@@ -37,9 +39,6 @@ public class StockDetailActivity extends BaseActivity {
     }
 
     private StockDetailViewModel mStockDetailViewModel;
-    private StockDetail mStockDetail;
-
-    private OperatingRevenueDao mOperatingRevenueDao = new OperatingRevenueImpl();
 
     private TextView mStockIDTextView;
     private TextView mStockNameTextView;
@@ -58,13 +57,14 @@ public class StockDetailActivity extends BaseActivity {
     private TextView mRevenueMonthPercentTextView;
     private TextView mRevenueYearPercentTextView;
 
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_detail);
 
+        //region View
         mStockIDTextView = findViewById(R.id.stock_id_text_view);
         mStockNameTextView = findViewById(R.id.stock_name_text_view);
         mOpenPrizeTextView = findViewById(R.id.open_prize_text_view);
@@ -82,30 +82,89 @@ public class StockDetailActivity extends BaseActivity {
         mRevenueMonthPercentTextView = findViewById(R.id.month_compare_percent_text_view);
         mRevenueYearPercentTextView = findViewById(R.id.year_compare_percent_text_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //endregion
 
-        mStockDetail = new Gson().fromJson(this.getIntent().getStringExtra("gson"), new TypeToken<StockDetail>(){}.getType());
-
-        StockRangeInfoDetail infoDetail = mStockDetail.getStockRangeInfoDetailList().get(mStockDetail.getStockRangeInfoDetailList().size() - 1);
-        mStockIDTextView.setText(infoDetail.getStockID());
-        mStockNameTextView.setText(mStockDetail.getStockName());
-        mOpenPrizeTextView.setText(infoDetail.getOpenPrize());
-        mClosePrizeTextView.setText(infoDetail.getClosePrize());
-        mHighestPrizeTextView.setText(infoDetail.getHighestPrize());
-        mLowestPrizeTextView.setText(infoDetail.getLowestPrize());
-        mRangeTextView.setText(infoDetail.getRange());
-        mDealStockTextView.setText(infoDetail.getDealStock());
-
-        mAdapter = new RecyclerViewAdapter(mStockDetail.getCorporationDetailList());
+        //region Data
+        mStockDetailViewModel = new ViewModelProvider(this).get(StockDetailViewModel.class);
+        mAdapter = new RecyclerViewAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
+        //endregion
 
-        OperatingRevenueDetail detail = DbItemToDetail.OperatingRevenue.toOperatingRevenueDetail(mOperatingRevenueDao.findByStockID(infoDetail.getStockID()));
-        mRevenueReleaseYearTextView.setText(detail.getReleaseDate().substring(0, 3));
-        mRevenueReleaseMonthTextView.setText(detail.getReleaseDate().substring(3, 5));
-        mRevenueReleaseDayTextView.setText(detail.getReleaseDate().substring(5));
-        mRevenueDataYearTextView.setText(detail.getDataDate().substring(0, 3));
-        mRevenueDataMonthTextView.setText(detail.getDataDate().substring(3));
-        mRevenueMonthPercentTextView.setText(detail.getCompareWithLastMonthRevenuePercent().substring(0, 6));
-        mRevenueYearPercentTextView.setText(detail.getCompareWithLastYearRevenuePercent().substring(0, 6));
+        if (mStockDetailViewModel.isSetUp(this.getIntent().getStringExtra("gson"))) {
+
+            subscribeSubject();
+        }
+    }
+
+    private void subscribeSubject() {
+
+        //region StockRangeInfoDetail 相關View給值
+        {
+            Disposable disposable = mStockDetailViewModel.output.stockRangeInfoSubject.subscribe(new Consumer<StockRangeInfoDetail>() {
+                @Override
+                public void accept(StockRangeInfoDetail infoDetail) throws Exception {
+
+                    mStockIDTextView.setText(infoDetail.getStockID());
+                    mStockNameTextView.setText(infoDetail.getStockName());
+                    mOpenPrizeTextView.setText(infoDetail.getOpenPrize());
+                    mClosePrizeTextView.setText(infoDetail.getClosePrize());
+                    mHighestPrizeTextView.setText(infoDetail.getHighestPrize());
+                    mLowestPrizeTextView.setText(infoDetail.getLowestPrize());
+                    mRangeTextView.setText(infoDetail.getRange());
+                    mDealStockTextView.setText(infoDetail.getDealStock());
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+                    Log.e("///", "stockRangeInfoSubject error: " + throwable);
+                }
+            });
+            addDisposable(disposable);
+        }
+        //endregion
+
+        //region OperatingRevenueDetail 相關View給值
+        {
+            Disposable disposable = mStockDetailViewModel.output.operatingRevenueSubject.subscribe(new Consumer<OperatingRevenueDetail>() {
+                @Override
+                public void accept(OperatingRevenueDetail detail) throws Exception {
+
+                    mRevenueReleaseYearTextView.setText(detail.getReleaseDate().substring(0, 3));
+                    mRevenueReleaseMonthTextView.setText(detail.getReleaseDate().substring(3, 5));
+                    mRevenueReleaseDayTextView.setText(detail.getReleaseDate().substring(5));
+                    mRevenueDataYearTextView.setText(detail.getDataDate().substring(0, 3));
+                    mRevenueDataMonthTextView.setText(detail.getDataDate().substring(3));
+                    mRevenueMonthPercentTextView.setText(detail.getCompareWithLastMonthRevenuePercent().substring(0, 6));
+                    mRevenueYearPercentTextView.setText(detail.getCompareWithLastYearRevenuePercent().substring(0, 6));
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+                    Log.e("///", "operatingRevenueSubject error: " + throwable);
+                }
+            });
+            addDisposable(disposable);
+        }
+        //endregion
+
+        //region CorporationDetailList 相關View給值
+        {
+            Disposable disposable = mStockDetailViewModel.output.corporationListSubject.subscribe(new Consumer<List<CorporationDetail>>() {
+                @Override
+                public void accept(List<CorporationDetail> corporationDetailList) throws Exception {
+
+                    mAdapter.setCorporationDetailList(corporationDetailList);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+                    Log.e("///", "corporationListSubject error: " + throwable);
+                }
+            });
+            addDisposable(disposable);
+        }
+        //endregion
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter {
@@ -138,6 +197,14 @@ public class StockDetailActivity extends BaseActivity {
 
         public CorporationDetail getItem(int position) {
             return mCorporationDetailList.get(position);
+        }
+
+        public List<CorporationDetail> getCorporationDetailList() {
+            return mCorporationDetailList;
+        }
+
+        public void setCorporationDetailList(List<CorporationDetail> corporationDetailList) {
+            mCorporationDetailList = corporationDetailList;
         }
     }
 

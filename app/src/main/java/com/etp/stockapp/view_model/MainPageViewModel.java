@@ -83,6 +83,9 @@ public class MainPageViewModel extends BaseViewModel {
         Log.d("///", "MainViewModel onCleared");
     }
 
+    /**
+     * 從DB中取得相關資料
+     */
     private void getStockDB() {
 
         try {
