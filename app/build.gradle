@@ -6,17 +6,17 @@ plugins {
 android {
     signingConfigs {
         debug {
-            keyAlias 'android_daniel_yu_sign_key'
-            keyPassword 'd4a9n9iel'
-            storeFile file('android_daniel_yu_sign_key.jks')
-            storePassword 'd4a9n9iel'
+            keyAlias 'key0'
+            keyPassword 'test_sign_key'
+            storeFile file('test_sign_key.jks')
+            storePassword 'test_sign_key'
         }
 
         release {
-            keyAlias 'android_daniel_yu_sign_key'
-            keyPassword 'd4a9n9iel'
-            storeFile file('android_daniel_yu_sign_key.jks')
-            storePassword 'd4a9n9iel'
+            keyAlias 'key0'
+            keyPassword 'test_sign_key'
+            storeFile file('test_sign_key.jks')
+            storePassword 'test_sign_key'
         }
     }
     compileSdkVersion 29
@@ -85,7 +85,7 @@ dependencies {
     annotationProcessor 'org.androidannotations:androidannotations:4.7.0'
     implementation 'org.androidannotations:androidannotations-api:4.7.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.3.0"
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     api 'com.squareup.retrofit2:retrofit:2.9.0'
